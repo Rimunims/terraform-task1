@@ -1,4 +1,4 @@
 provider "google" {
     project = "dummy"
-    region = "dummy"
+    region = "us-central1"
 }

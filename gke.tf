@@ -1,6 +1,6 @@
 resource "google_container_cluster" "primary" {
-    name = "dummy"
-    location = "dummy"
+    name = "gke-cluster"
+    location = "us-central1"
 
     node_pool {
         name = "default-pool"
