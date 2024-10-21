@@ -1,3 +1,30 @@
+resource "google_compute_instance_template" "gke_template"{
+    name = "gke-template"
+    machine_type = "n1-standard-1"
+    disk {
+      boot =true
+      auto_delete = true
+      source_image = "debian-cloud/debian-11"
+    }
+    network_interface {
+      network = "default"
+      access_config {
+
+      }
+
+    }
+}
+
+resource "google_compute_instance_group_manager" "gke_nodes" {
+  name = "gke-nodes"
+  zone = "us-central1-a"
+  base_instance_name = "gkeinstance"
+  version{
+    instance_template = google_compute_instance_template.gke_template.self_link
+  }
+  target_size = 1
+}
+
 resource "google_compute_global_address" "lb_ip" {
   name = "lb-ip"
 }
@@ -13,8 +40,9 @@ resource "google_compute_backend_service" "resolver-backend" {
   timeout_sec = 30
 
   backend {
-    group = google_compute_instance_group.gke_nodes.self_link
+    group = google_compute_instance_group_manager.gke_nodes.instance_group
   }
+  health_checks = [google_compute_http_health_check.resolver-health-check.self_link]
 }
 
 resource "google_compute_http_health_check" "resolver-health-check" {
@@ -43,6 +71,8 @@ resource "google_compute_target_http_proxy" "resolver-http-proxy" {
     url_map = google_compute_url_map.resolver-url-map.self_link
 }
   
+
+ 
 
 
 
