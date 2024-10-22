@@ -1,6 +1,6 @@
 resource "google_dns_managed_zone" "resolver-zone"{
-    name = "resolver-zone"
-    dns_name = "uniresolver.io."
+    name = "universal-resolver-zone"
+    dns_name = "dev.uniresolver.io."
 }
 resource "google_dns_record_set" "resolver-dns" {
     name = "dev.uniresolver.io."
@@ -8,5 +8,5 @@ resource "google_dns_record_set" "resolver-dns" {
     ttl = 300
     managed_zone = google_dns_managed_zone.resolver-zone.name
 
-    rrdatas = [google_compute_global_address.lb_ip.address]
+    rrdatas = [google_compute_global_address.resolver_global_ip.address]
 }
