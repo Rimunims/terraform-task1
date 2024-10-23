@@ -1,4 +1,5 @@
 **/.terraform/*
+**/docker compose/*
 *.tfstate
 *.tfstate.backup
-variables.tf
+variables.tfclea
