@@ -1,9 +1,24 @@
 resource "google_container_cluster" "primary" {
   name = "universal-resolver-cluster"
   location = var.region
-  initial_node_count = 3
+  initial_node_count = 1
 
-  node_locations = ["us-central1-a","us-central1-b","us-central1-c"]
+  node_locations = ["us-central1-a","us-central1-b"]
+
+  maintenance_policy {
+    daily_maintenance_window {
+      start_time = "03:00"
+    }
+  }
+
+  lifecycle {
+    prevent_destroy = false
+  }
+}
+
+resource "google_container_node_pool" "primary_nodes" {
+  cluster = google_container_cluster.primary.name
+  node_count = 3
 
   node_config {
     machine_type = "e2-standard-4"
@@ -14,5 +29,9 @@ resource "google_container_cluster" "primary" {
         "https://www.googleapis.com/auth/servicecontrol"
     ]
    # subnetwork = var.subnetwork
+  }
+  management {
+    auto_repair = true
+    auto_upgrade = true
   }
 }
