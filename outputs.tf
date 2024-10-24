@@ -9,5 +9,5 @@ output "load_balancer_ip" {
 }
 output "dns_name" {
     description = "The DNS name for the Universal Resolver application"
-    value = "dev.uniresolver.io"
+    value = "universal-did-resolver"
 }
