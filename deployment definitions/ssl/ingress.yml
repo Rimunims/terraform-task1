@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: uni-resolver-ingress
+  namespace: uniresolver
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  spec:
+    ingressClassName: nginx
+    rules:
+    - host: universal-did-resolver.1edtech.org
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: uni-resolver-frontend
+              port:
+                number: 80
+      #  - path: /web
+       #   pathType: Prefix
+        #  backend:
+         #   service:
+          #    name: uni-resolver-web
+           #   port:
+            #    number: 8080
+    tls:
+    - hosts:
+      - unversal-did-resolver.1edtech.org
+      secretName: universal-app-tls
