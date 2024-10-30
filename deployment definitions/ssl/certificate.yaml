@@ -1,8 +1,11 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: certmanager-app
-  namespace: default
+  name: uni-resolver-tls
+  namespace: uni-resolver
+  annotations:
+    cert-manager.io/issuer-kind: "ClusterIssuer"
+    cert-manager.io/issuer-name: "letsencrypt-prod" 
 spec:
   dnsNames:
     - universal-did-resolver.1edtech.org

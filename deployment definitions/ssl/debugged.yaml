@@ -1,0 +1,69 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      cloud.google.com/neg: '{"ingress":true}'
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"uni-resolver-frontend","namespace":"uni-resolver"},"spec":{"ports":[{"port":80,"protocol":"TCP","targetPort":7081}],"selector":{"app":"uni-resolver-frontend"},"type":"NodePort"}}
+    creationTimestamp: "2024-10-30T16:06:42Z"
+    name: uni-resolver-frontend
+    namespace: uni-resolver
+    resourceVersion: "2018774"
+    uid: 850f9c46-3b08-4e40-97f9-fa62ac918dad
+  spec:
+    clusterIP: 34.118.238.169
+    clusterIPs:
+    - 34.118.238.169
+    externalTrafficPolicy: Cluster
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - nodePort: 31523
+      port: 80
+      protocol: TCP
+      targetPort: 7081
+    selector:
+      app: uni-resolver-frontend
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      cloud.google.com/neg: '{"ingress":true}'
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"uni-resolver-web","namespace":"uni-resolver"},"spec":{"ports":[{"port":8080,"protocol":"TCP","targetPort":8080}],"selector":{"app":"uni-resolver-web"},"type":"NodePort"}}
+    creationTimestamp: "2024-10-28T17:24:54Z"
+    name: uni-resolver-web
+    namespace: uni-resolver
+    resourceVersion: "2013837"
+    uid: a447c672-cae7-488e-899e-41672fd9c01b
+  spec:
+    clusterIP: 34.118.233.184
+    clusterIPs:
+    - 34.118.233.184
+    externalTrafficPolicy: Cluster
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - nodePort: 31631
+      port: 443
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: uni-resolver-web
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""
